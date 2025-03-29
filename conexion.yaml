@@ -1,22 +1,7 @@
 ---
-- name: Test de Conexión de Servidores
+- name: Test de Conexión con Ping
   hosts: all
   gather_facts: no
   tasks:
     - name: Verificar conectividad con ping
       ping:
-
-    - name: Verificar conexión de red con telnet (puerto 80)
-      command: "nc -zv {{ inventory_hostname }} 80"
-      register: telnet_result
-      ignore_errors: yes
-
-    - name: Mostrar resultado de telnet
-      debug:
-        msg: "Conexión al puerto 80 exitosa en {{ inventory_hostname }}"
-      when: telnet_result.rc == 0
-
-    - name: Fallo de telnet
-      debug:
-        msg: "No se pudo conectar al puerto 80 en {{ inventory_hostname }}"
-      when: telnet_result.rc != 0
